@@ -10,8 +10,10 @@ fn main() {
   for i in &file_data {
     if i.is_empty() == true {
       high_values.push(holding_number);
+      holding_number = 0;
     } else {
-      
+      let temp: i32 = i.parse().expect("Not a number!");
+      holding_number = holding_number + temp;
     }
     
     println!("{:?}", i);
