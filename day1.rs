@@ -3,7 +3,7 @@ use std::io::Read;
 
 fn main() {
   let filename = "inputday1.txt";
-  let file_data = vec![lines_from_file(filename)];
+  let file_data = lines_from_file(filename);
   let mut high_values: Vec<i32> = Vec::new();
   let mut holding_number = 0;
   
@@ -15,9 +15,19 @@ fn main() {
       let temp: i32 = i.parse().expect("Not a number!");
       holding_number = holding_number + temp;
     }
-    
-    println!("{:?}", i);
   };
+
+  high_values.sort();
+  high_values.reverse();
+  
+  let high: &i32 = &high_values[0];
+  let secound: &i32 = &high_values[1];
+  let third: &i32 = &high_values[2];
+  
+  println!("{}", high+third+secound); //Answer to secound problem
+  println!("{}", high); // Answer to first problem
+  println!("{}", secound);
+  println!("{}", third);
 }
 
 fn lines_from_file(filename: &str) -> Vec<String> {
