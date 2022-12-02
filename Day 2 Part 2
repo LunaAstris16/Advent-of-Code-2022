@@ -1,0 +1,66 @@
+use std::fs::File;
+use std::io::Read;
+
+fn main() {
+  let filename = "inputday2.txt";
+  let file_data = lines_from_file(filename);
+  let mut score = 0;
+  
+
+  let mut x = 0;
+
+  while x < file_data.len()-1 {
+    println!("{}", x);
+    let newtemp: Vec<&str> = file_data[x].split(" ").collect();
+    let oppenent = newtemp[0];
+    let player = newtemp[1];
+    println!("{}", newtemp[0]);
+    println!("{}", newtemp[1]);
+    //println!("{}", player);
+    if oppenent == "A"{
+      if player == "X"{
+        score = score + 3;
+      }else if player == "Y"  {
+        score = score + 4;        
+      }else if player == "Z" {
+        score = score + 8;    
+      }
+    }else if oppenent == "B" {
+      if player == "X"{
+        score = score + 1;        
+      }else if player == "Y"  {
+        score = score + 5;        
+      }else if player == "Z" {
+        score = score + 9;    
+      }
+    }else if oppenent == "C" {
+      if player == "X"{
+        score = score + 2;        
+      }else if player == "Y"  {
+        score = score + 6;         
+      }else if player == "Z" {
+        score = score + 7;     
+      }
+    }
+    
+    x = x + 1;
+  }
+
+  println!("{}", score);
+
+}
+
+fn lines_from_file(filename: &str) -> Vec<String> {
+    let mut file = match File::open(filename) {
+        Ok(file) => file,
+        Err(_) => panic!("no such file"),
+    };
+    let mut file_contents = String::new();
+    file.read_to_string(&mut file_contents)
+        .ok()
+        .expect("failed to read!");
+    let lines: Vec<String> = file_contents.split("\n")
+        .map(|s: &str| s.to_string())
+        .collect();
+    lines
+}
